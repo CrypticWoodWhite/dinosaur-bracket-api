@@ -41,8 +41,9 @@ app.post("/api/dinosaurs/:bracket/:name", async (req, res) => {
     where: { bracket: req.params.bracket, name: req.params.bracket },
   });
   if (dinosaur) {
+    console.log("dinosaur", dinosaur)
     dinosaur.increment("votes", { by: 1 });
-    res.json(dinosaur);
+    res.status(200).json(dinosaur);
   } else {
     return res.status(404).json({ message: "Dinosaur not found" });
   }
