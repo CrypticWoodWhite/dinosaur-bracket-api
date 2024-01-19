@@ -6,7 +6,7 @@ const app = express();
 
 // Connect to MySQL database from the server
 const sequelize = new Sequelize("dinosaurs", "root", process.env.DB_PASSWORD, {
-  dialect: "mysql",
+  dialect: "postgres",
   host: "localhost",
 });
 
