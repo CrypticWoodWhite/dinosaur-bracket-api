@@ -38,10 +38,9 @@ app.post("/api/dinosaurs", async (req, res) => {
 
 app.post("/api/dinosaurs/:bracket/:name", async (req, res) => {
   const dinosaur = await Dinosaur.findOne({
-    where: { bracket: req.params.bracket, name: req.params.bracket },
+    where: { bracket: req.params.bracket, name: req.params.name },
   });
   if (dinosaur) {
-    console.log("dinosaur", dinosaur)
     dinosaur.increment("votes", { by: 1 });
     res.status(200).json(dinosaur);
   } else {
