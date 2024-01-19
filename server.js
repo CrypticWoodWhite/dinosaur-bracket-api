@@ -7,7 +7,7 @@ const app = express();
 // Connect to MySQL database from the server
 const sequelize = new Sequelize("dinosaurs", "root", process.env.DB_PASSWORD, {
   dialect: "postgres",
-  host: "localhost",
+  host: "dpg-cmleg67109ks7391ke5g-a",
 });
 
 // Define a model
