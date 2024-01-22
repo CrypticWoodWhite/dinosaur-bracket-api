@@ -19,7 +19,7 @@ const Dinosaur = sequelize.define("Dinosaur", {
 });
 
 // Sync the model with the database
-sequelize.sync(); // add force: true to drop the db and recreate it
+sequelize.sync({ force: true} ); // add force: true to drop the db and recreate it
 
 // Middleware
 app.use(express.json());
