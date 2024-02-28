@@ -5,13 +5,25 @@ require("dotenv").config();
 const app = express();
 
 // Connect to MySQL database from the server
-const sequelize = new Sequelize("dinosaurs", "root", process.env.DB_PASSWORD, {
+// const sequelize = new Sequelize("dinosaurs", "root", process.env.DB_PASSWORD, {
+//   dialect: "postgres",
+//   host: "dpg-cmleg67109ks7391ke5g-a",
+// });
+
+const sequelize = new Sequelize("birds_p3h2", "root", process.env.DB_PASSWORD, {
   dialect: "postgres",
-  host: "dpg-cmleg67109ks7391ke5g-a",
+  host: "dpg-cnfcae21hbls738ukcpg-a",
 });
 
 // Define a model
-const Dinosaur = sequelize.define("Dinosaur", {
+// const Dinosaur = sequelize.define("Dinosaur", {
+//   name: { type: Sequelize.STRING },
+//   person: { type: Sequelize.STRING },
+//   votes: { type: Sequelize.INTEGER },
+//   bracket: { type: Sequelize.STRING },
+// });
+
+const Bird = sequelize.define("Bird", {
   name: { type: Sequelize.STRING },
   person: { type: Sequelize.STRING },
   votes: { type: Sequelize.INTEGER },
@@ -25,26 +37,49 @@ sequelize.sync(); // add force: true to drop the db and recreate it
 app.use(express.json());
 
 // Endpoints
-app.get("/api/dinosaurs", async (req, res) => {
-  const allDinosaurs = await Dinosaur.findAll();
-  res.json(allDinosaurs);
+// app.get("/api/dinosaurs", async (req, res) => {
+//   const allDinosaurs = await Dinosaur.findAll();
+//   res.json(allDinosaurs);
+// });
+
+app.get("/api/birds", async (req, res) => {
+  const allBirds = await Bird.findAll();
+  res.json(allBirds);
 });
 
-app.post("/api/dinosaurs", async (req, res) => {
+// app.post("/api/dinosaurs", async (req, res) => {
+//   // TODO: handle an array
+//   const newDinosaur = await Dinosaur.create(req.body);
+//   res.json(newDinosaur);
+// });
+
+app.post("/api/birds", async (req, res) => {
   // TODO: handle an array
-  const newDinosaur = await Dinosaur.create(req.body);
+  const newBird = await Bird.create(req.body);
   res.json(newDinosaur);
 });
 
-app.post("/api/dinosaurs/:bracket/:name", async (req, res) => {
-  const dinosaur = await Dinosaur.findOne({
+// app.post("/api/dinosaurs/:bracket/:name", async (req, res) => {
+//   const dinosaur = await Dinosaur.findOne({
+//     where: { bracket: req.params.bracket, name: req.params.name },
+//   });
+//   if (dinosaur) {
+//     dinosaur.increment("votes", { by: 1 });
+//     res.status(200).json(dinosaur);
+//   } else {
+//     return res.status(404).json({ message: "Dinosaur not found" });
+//   }
+// });
+
+app.post("/api/birds/:bracket/:name", async (req, res) => {
+  const bird = await Bird.findOne({
     where: { bracket: req.params.bracket, name: req.params.name },
   });
-  if (dinosaur) {
+  if (bird) {
     dinosaur.increment("votes", { by: 1 });
-    res.status(200).json(dinosaur);
+    res.status(200).json(bird);
   } else {
-    return res.status(404).json({ message: "Dinosaur not found" });
+    return res.status(404).json({ message: "Bird not found" });
   }
 });
 
