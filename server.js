@@ -31,7 +31,7 @@ const Bird = sequelize.define("Bird", {
 });
 
 // Sync the model with the database
-sequelize.sync(); // add force: true to drop the db and recreate it
+sequelize.sync({force: true}); // add force: true to drop the db and recreate it
 
 // Middleware
 app.use(express.json());
@@ -56,7 +56,7 @@ app.get("/api/birds", async (req, res) => {
 app.post("/api/birds", async (req, res) => {
   // TODO: handle an array
   const newBird = await Bird.create(req.body);
-  res.json(newDinosaur);
+  res.json(newBird);
 });
 
 // app.post("/api/dinosaurs/:bracket/:name", async (req, res) => {
@@ -76,7 +76,7 @@ app.post("/api/birds/:bracket/:name", async (req, res) => {
     where: { bracket: req.params.bracket, name: req.params.name },
   });
   if (bird) {
-    dinosaur.increment("votes", { by: 1 });
+    bird.increment("votes", { by: 1 });
     res.status(200).json(bird);
   } else {
     return res.status(404).json({ message: "Bird not found" });
